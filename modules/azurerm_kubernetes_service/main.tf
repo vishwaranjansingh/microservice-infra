@@ -6,6 +6,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   resource_group_name = each.value.resource_group_name
   dns_prefix          = each.value.dns_prefix
   kubernetes_version  = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
+  sku_tier            = each.value.sku_tier
 
   default_node_pool {
     name            = "default"

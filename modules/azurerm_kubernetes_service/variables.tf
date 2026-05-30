@@ -8,6 +8,7 @@ variable "clusters" {
     node_count          = number
     vm_size             = string
     os_disk_size_gb     = number
+    sku_tier            = string
     acr_id              = string
     network_profile = object({
 

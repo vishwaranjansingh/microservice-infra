@@ -20,6 +20,7 @@ variable "environments" {
       node_count      = number
       vm_size         = string
       os_disk_size_gb = number
+      sku_tier        = string
       network_profile = object({
         network_plugin    = string
         load_balancer_sku = string
