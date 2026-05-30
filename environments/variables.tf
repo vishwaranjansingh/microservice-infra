@@ -3,7 +3,7 @@ variable "environments" {
   type = map(object({
     location            = string
     resource_group_name = string
-    
+
     acr_config = object({
       name          = string
       sku           = string
