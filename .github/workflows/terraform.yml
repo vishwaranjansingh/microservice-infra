@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # Allows manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,7 +16,6 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     env:
-      # Standard ARM_ variables for the azurerm provider
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -28,30 +27,19 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Login to Azure with Service Principal
+    # Log into Azure to provide a fallback authentication method for the provider
     - name: Azure Login
       uses: azure/login@v2
       with:
         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
-    # Log in to Azure using the Service Principal secrets
-    - name: Azure Login
-      uses: azure/login@v2
-      with:
-        creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
-
-    # Install and configure TFLint
     - name: Setup TFLint
       uses: terraform-linters/setup-tflint@v4
       with:
         tflint_version: latest
-
-    - name: Show TFLint version
-      run: tflint --version
 
     - name: Init TFLint
       run: tflint --init
@@ -61,29 +49,23 @@ jobs:
     - name: Run TFLint
       run: tflint -f compact
 
-    # Static analysis with tfsec
     - name: Run tfsec
       uses: aquasecurity/tfsec-action@v1.0.0
       with:
         working_directory: ${{ env.working-directory }}
 
-    # Install the latest version of Terraform CLI
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
-    # Initialize a new or existing Terraform working directory
     - name: Terraform Init
       run: terraform init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check -recursive ..
 
-    # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
 
-    # On push to "main", build or change infrastructure
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
