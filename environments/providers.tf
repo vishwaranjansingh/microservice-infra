@@ -11,7 +11,5 @@ terraform {
 
 provider "azurerm" {
   features {}
-
-  # Required for Service Principals without subscription-level registration permissions
-  skip_provider_registration = true
+  use_oidc = true
 }
