@@ -1,6 +1,6 @@
 environments = {
   dev = {
-    location            = "East US"
+    location            = "Japan West"
     resource_group_name = "microservice-dev-rg"
     tags = {
       Environment = "Development"
@@ -28,7 +28,7 @@ environments = {
   }
 
   # prod = {
-  #   location            = "East US"
+  #   location            = "Japan West"
   #   resource_group_name = "microservice-prod-rg"
   #   tags = {
   #     Environment = "Production"
