@@ -35,6 +35,7 @@ module "aks" {
       dns_prefix          = v.aks_config.dns_prefix
       node_count          = v.aks_config.node_count
       vm_size             = v.aks_config.vm_size
+      os_disk_size_gb     = v.aks_config.os_disk_size_gb
       acr_name            = v.acr_config.name
       network_profile     = v.aks_config.network_profile
     }

@@ -8,9 +8,10 @@ resource "azurerm_kubernetes_cluster" "this" {
   kubernetes_version  = data.azurerm_kubernetes_service_versions.current[each.key].latest_version
 
   default_node_pool {
-    name       = "default"
-    node_count = each.value.node_count
-    vm_size    = each.value.vm_size
+    name            = "default"
+    node_count      = each.value.node_count
+    vm_size         = each.value.vm_size
+    os_disk_size_gb = each.value.os_disk_size_gb
   }
 
   identity {

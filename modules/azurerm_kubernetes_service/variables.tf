@@ -7,6 +7,7 @@ variable "clusters" {
     dns_prefix          = string
     node_count          = number
     vm_size             = string
+    os_disk_size_gb     = number
     acr_name            = string
     network_profile = object({
       network_plugin    = string

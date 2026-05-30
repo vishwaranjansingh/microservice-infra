@@ -15,10 +15,11 @@ variable "environments" {
     })
 
     aks_config = object({
-      name       = string
-      dns_prefix = string
-      node_count = number
-      vm_size    = string
+      name            = string
+      dns_prefix      = string
+      node_count      = number
+      vm_size         = string
+      os_disk_size_gb = number
       network_profile = object({
         network_plugin    = string
         load_balancer_sku = string
