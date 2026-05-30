@@ -36,7 +36,7 @@ module "aks" {
       vm_size             = v.aks_config.vm_size
       os_disk_size_gb     = v.aks_config.os_disk_size_gb
       sku_tier            = v.aks_config.sku_tier
-      acr_id              = module.acr[k].acr_id
+      acr_id              = module.acr.registry_ids[k]
       network_profile     = v.aks_config.network_profile
     }
   }
