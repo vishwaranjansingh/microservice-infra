@@ -9,7 +9,7 @@ environments = {
     }
     acr_config = {
       name            = "microdevacr2026"
-      sku             = "Standard"
+      sku             = "Basic"
       admin_enabled   = true
       georeplications = []
     }
@@ -17,7 +17,7 @@ environments = {
       name       = "aks-dev-cluster"
       dns_prefix = "aksdev"
       node_count = 1
-      vm_size    = "Standard_DS2_v2"
+      vm_size    = "Standard_B2s"
       network_profile = {
         network_plugin    = "kubenet"
         load_balancer_sku = "standard"
@@ -26,7 +26,7 @@ environments = {
   }
 
   prod = {
-    location            = "West US"
+    location            = "East US"
     resource_group_name = "microservice-prod-rg"
     tags = {
       Environment = "Production"
@@ -35,22 +35,17 @@ environments = {
     }
     acr_config = {
       name          = "microprodacr2026"
-      sku           = "Premium"
+      sku           = "Basic"
       admin_enabled = false
-      georeplications = [
-        {
-          location                = "East US"
-          zone_redundancy_enabled = true
-        }
-      ]
+      georeplications = []
     }
     aks_config = {
       name       = "aks-prod-cluster"
       dns_prefix = "aksprod"
-      node_count = 3
-      vm_size    = "Standard_DS3_v2"
+      node_count = 1
+      vm_size    = "Standard_B2s"
       network_profile = {
-        network_plugin    = "azure"
+        network_plugin    = "kubenet"
         load_balancer_sku = "standard"
       }
     }
