@@ -12,6 +12,6 @@ terraform {
 provider "azurerm" {
   features {}
 
-  # Often required for Service Principals with limited permissions in automated environments
+  # Often required for Service Principals with limited permissions
   skip_provider_registration = true
 }
