@@ -6,6 +6,7 @@ resource "azurerm_container_registry" "this" {
   location            = each.value.location
   sku                 = each.value.sku
   admin_enabled       = each.value.admin_enabled
+  tags                = each.value.tags
 
   dynamic "georeplications" {
     for_each = each.value.sku == "Premium" ? each.value.georeplications : []

@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "this" {
 resource "azurerm_role_assignment" "acr_pull" {
   for_each = var.clusters
 
-  scope                = data.azurerm_container_registry.this[each.key].id
+  scope                = each.value.acr_id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.this[each.key].kubelet_identity[0].object_id
 }

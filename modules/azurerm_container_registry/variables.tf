@@ -10,5 +10,6 @@ variable "container_registries" {
       location                = string
       zone_redundancy_enabled = bool
     }))
+    tags = map(string)
   }))
 }
